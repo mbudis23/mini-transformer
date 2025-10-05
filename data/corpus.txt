@@ -1,0 +1,15 @@
+saya suka belajar mesin
+mesin belajar membantu manusia
+manusia menciptakan teknologi
+teknologi mengubah dunia
+dunia terus berkembang
+saya belajar pemrograman python
+python digunakan untuk kecerdasan buatan
+kecerdasan buatan memerlukan data
+data berasal dari manusia
+manusia menggunakan mesin untuk belajar
+transformer adalah model bahasa
+model bahasa memahami konteks kata
+embedding merepresentasikan arti kata
+attention membantu model fokus pada kata penting
+model transformer menggunakan attention
