@@ -25,8 +25,6 @@ def main():
     parser.add_argument("--d_model", type=int, default=32, help="Dimensi embedding (ukuran vektor per token)")
     parser.add_argument("--n_heads", type=int, default=4, help="Jumlah head dalam Multi-Head Attention")
     parser.add_argument("--n_layers", type=int, default=2, help="Jumlah layer Transformer block")
-    parser.add_argument("--positional", type=str, choices=["sinusoidal", "learned"], default="sinusoidal",
-                        help="Tipe positional encoding (sinusoidal / learned)")
     parser.add_argument("--seed", type=int, default=42, help="Seed random untuk reproducibility")
 
     # --- INPUT/OUTPUT OPTIONS ---
@@ -68,20 +66,31 @@ def main():
     logits, probs_last, attn_list = model.forward(tokens, return_attentions=True)
 
     # ------------------------------
-    # 4️⃣ Output
+    # 4️⃣ Output hasil
     # ------------------------------
     print("\n=== HASIL TRANSFORMER ===")
-    print(f"Logits shape: {logits.shape}  -> [batch, seq_len, vocab_size]")
-    print("Distribusi probabilitas token berikutnya (posisi terakhir):")
+    print(f"Logits shape: {logits.shape} -> [batch, seq_len, vocab_size]\n")
+
+    # tampilkan sebagian isi logits agar tidak terlalu panjang
+    print("Contoh nilai logits (token terakhir):")
+    print(np.round(logits[0, -1], 4))  # logits token terakhir
+
+    print("\nDistribusi probabilitas token berikutnya (softmax di posisi terakhir):")
     print(np.round(probs_last, 4))
     print("Jumlah probabilitas:", np.sum(probs_last))
 
-    # Simpan logits jika diminta
+    # 🔮 Token prediksi berikutnya
+    pred_token = int(np.argmax(probs_last))
+    pred_prob = float(np.max(probs_last))
+    print(f"\nToken yang paling mungkin muncul berikutnya: {pred_token} (probabilitas = {pred_prob:.4f})")
+
+    # ------------------------------
+    # 5️⃣ Simpan & visualisasi opsional
+    # ------------------------------
     if args.save_logits:
         np.save(args.save_logits, logits)
         print(f"\nLogits disimpan ke file: {args.save_logits}.npy")
 
-    # Visualisasi attention matrix pertama
     if args.show_attention:
         attn = attn_list[0][0, 0]  # block 0, head 0
         print("\nAttention matrix (Block 0, Head 0):\n", np.round(attn, 3))

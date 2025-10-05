@@ -2,8 +2,7 @@
 import numpy as np
 from .utils import default_rng, softmax, xavier_init
 from .components import (
-    TokenEmbedding, SinusoidalPositionalEncoding,
-    LearnedPositionalEmbedding, DecoderBlock, LayerNorm
+    TokenEmbedding, SinusoidalPositionalEncoding,DecoderBlock, LayerNorm
 )
 
 class DecoderOnlyTransformer:

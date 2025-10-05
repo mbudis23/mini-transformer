@@ -16,13 +16,6 @@ class TokenEmbedding:
         return self.W[tokens]  # (batch, seq_len, d_model)
 
 # Positional Encoding
-class LearnedPositionalEmbedding:
-    """Learned positional embeddings"""
-    def __init__(self, max_len, d_model, rng):
-        self.W = xavier_init(rng, (max_len, d_model))
-    def forward(self, seq_len):
-        return self.W[:seq_len]
-
 class SinusoidalPositionalEncoding:
     """Sinusoidal positional encoding (deterministic, no params)"""
     def __init__(self, max_len, d_model):
